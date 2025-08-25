@@ -5,6 +5,7 @@
     <ul :class="['links',{open}]">
       <li><RouterLink to="/">Home</RouterLink></li>
       <li><RouterLink to="/programs">Programs</RouterLink></li>
+      <li><RouterLink to="/contact">Contact us</RouterLink></li>
     </ul>
   </nav>
 </template>

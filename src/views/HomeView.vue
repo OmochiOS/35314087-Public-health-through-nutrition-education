@@ -4,9 +4,16 @@
     <p class="tag">Nourish the Collective</p>
     <RouterLink class="cta" to="/programs">Explore the program</RouterLink>
   </header>
+    <section style="margin-top:16px">
+    <h3>Subscribe To Nutrition Tips</h3>
+    <SubscribeForm/>
+  </section>
 </template>
 
-<script setup></script>
+<script setup>
+import SubscribeForm from '@/components/SubscribeForm.vue';
+
+</script>
 
 <style scoped>
 .hero{display:grid;gap:8px;padding:12px 0}
