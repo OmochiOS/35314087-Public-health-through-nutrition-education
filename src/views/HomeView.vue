@@ -1,6 +1,15 @@
 <template>
-  <div class="home">
-    <h1>Public Health through Nutrition Education</h1>
-    <p>Healthy Eating, Healthy Communities.</p>
-  </div>
+  <header class="hero">
+    <h1>Building Healthier Communities Through Nutrition </h1>
+    <p class="tag">Nourish the Collective</p>
+    <RouterLink class="cta" to="/programs">Explore the program</RouterLink>
+  </header>
 </template>
+
+<script setup></script>
+
+<style scoped>
+.hero{display:grid;gap:8px;padding:12px 0}
+.tag{color:#555}
+.cta{display:inline-block;margin-top:8px;padding:8px 12px;border:1px solid #ddd;border-radius:10px;text-decoration:none}
+</style>

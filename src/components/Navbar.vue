@@ -1,11 +1,29 @@
 <template>
-  <nav style="display:flex;gap:16px;align-items:center;padding:12px 0;">
-    <strong>Healthy Bites</strong>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/programs">Programs</RouterLink>
-    <RouterLink to="/resources">Resources</RouterLink>
-    <RouterLink to="/contact">Contact</RouterLink>
+  <nav class="nav">
+    <div class="brand">NutriSphere</div>
+    <button class="menu" @click="open=!open">☰</button>
+    <ul :class="['links',{open}]">
+      <li><RouterLink to="/">Home</RouterLink></li>
+      <li><RouterLink to="/programs">Programs</RouterLink></li>
+    </ul>
   </nav>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+const open = ref(false)
+</script>
+
+<style scoped>
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;}
+.brand{font-weight:700}
+.menu{display:none;border:1px solid #ddd;background:#f8f8f8;padding:6px 10px;border-radius:8px}
+.links{display:flex;gap:16px;list-style:none;margin:0;padding:0}
+a{text-decoration:none;color:#333}
+a.router-link-active{text-decoration:underline}
+@media (max-width:576px){
+  .menu{display:block}
+  .links{display:none;flex-direction:column;gap:10px}
+  .links.open{display:flex}
+}
+</style>
