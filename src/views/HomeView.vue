@@ -2,7 +2,7 @@
   <header class="hero">
     <h1>Building Healthier Communities Through Nutrition </h1>
     <p class="tag">Nourish the Collective</p>
-    <RouterLink class="cta" to="/programs">Explore the program</RouterLink>
+    <RouterLink class="cta" to="/programs">Explore The Program</RouterLink>
   </header>
     <section style="margin-top:16px">
     <h3>Subscribe To Nutrition Tips</h3>
