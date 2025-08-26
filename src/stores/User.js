@@ -1,4 +1,3 @@
-// src/stores/User.js
 import { defineStore } from 'pinia'
 
 const LS_KEY = 'hb-auth-v1'
@@ -39,7 +38,7 @@ export const useUserStore = defineStore('user', {
     },
     ensureAdminSeed () {
       if (!this.users.some(u => u.username === 'admin')) {
-        this.users.push({ username: 'admin', email: 'admin@example.com', password: 'admin123', role: 'admin' })
+        this.users.push({ username: 'admin', email: 'admin@monash.edu', password: 'admin123', role: 'admin' })
         saveState({ users: this.users, currentUser: this.currentUser })
       }
     }

@@ -1,41 +1,73 @@
 <template>
-  <h2>Programs</h2>
+  <section class="wrap">
+    <h2>Programs</h2>
 
-  <div class="grid">
-    <ProgramCard
-      v-for="item in list"
-      :key="item.id"
-      :p="item"
-      @enrol="enrol"
-    />
-  </div>
+    <!-- filter bar -->
+    <div class="filters">
+      <input v-model.trim="q" class="ipt" placeholder="Search title..." />
+      <select v-model="level" class="sel">
+        <option value="">All levels</option>
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>All</option>
+      </select>
+      <span class="meta">Total: {{ filtered.length }}</span>
+    </div>
+
+    <div class="grid">
+      <ProgramCard
+        v-for="prog in filtered"
+        :key="prog.id"
+        :p="prog"
+        @enrol="enrol"
+      />
+    </div>
+
+    <p v-if="!filtered.length" class="empty">No programs found.</p>
+  </section>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { computed, ref } from 'vue'
+import { useProgramsStore } from '@/stores/Programs'
 import ProgramCard from '@/components/ProgramCard.vue'
-import { programs } from '@/data/programs'
 
+const store = useProgramsStore()
 
-const list = ref([])
-onMounted(() => {
-  setTimeout(() => {
-    list.value = programs.map(p => ({ ...p }))  
-  }, 200)
+// filter bar
+const q = ref('')
+const level = ref('')
+
+const filtered = computed(() => {
+  const kw = q.value.toLowerCase()
+  return store.list.filter(p => {
+    const okKeyword = !kw || p.title.toLowerCase().includes(kw)
+    const okLevel = !level.value || p.level === level.value
+    return okKeyword && okLevel
+  })
 })
 
+// Enroll（spots - 1）
 function enrol(id) {
-  const target = list.value.find(x => x.id === id)
-  if (target && target.spots > 0) {
-    target.spots -= 1
-    alert(`Enrollment Success：${target.title}（Remain ${target.spots}）`)
-  }
+  store.signUp(id)
 }
 </script>
 
 <style scoped>
-.grid { display:grid; gap:12px; grid-template-columns:repeat(3, 1fr); }
-@media (max-width: 992px) { .grid { grid-template-columns:repeat(2, 1fr); } }
-@media (max-width: 576px) { .grid { grid-template-columns:1fr; } }
-</style>
+.wrap { max-width: 1100px; margin: 0 auto; display: grid; gap: 16px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ipt, .sel { padding: 8px; border: 1px solid #ddd; border-radius: 8px; }
+.meta { color:#666; }
 
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 1200px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px)  { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 576px)  { .grid { grid-template-columns: 1fr; } }
+
+.empty { color:#666; }
+</style>

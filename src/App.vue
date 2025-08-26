@@ -1,15 +1,23 @@
 <template>
-  <div class="shell">
-    <Navbar />
-    <RouterView />
-    <footer class="footer">
-      <small>© {{ new Date().getFullYear() }} NutriSphere</small>
-    </footer>
+  <div>
+    <Navbar/>
+    <main class="shell">
+      <RouterView/>
+    </main>
+    <footer class="footer">© 2025 NutriSphere</footer>
   </div>
 </template>
 
 <script setup>
 import Navbar from '@/components/Navbar.vue' 
+import { onMounted } from 'vue'
+import { useUserStore } from '@/stores/User' 
+
+const user = useUserStore()
+onMounted(() => {
+  user.ensureAdminSeed()
+  console.log('[seed] users =', user.users)     
+})
 </script>
 
 <style>
