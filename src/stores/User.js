@@ -22,9 +22,9 @@ export const useUserStore = defineStore('user', {
     register ({ username, email, password }) {
       if (this.users.some(u => u.username === username)) throw new Error('Username already exists')
       if (this.users.some(u => u.email === email))       throw new Error('Email already registered')
-      const newUser = { username, email, password, role: 'user' } // Step 7 再做密码哈希
+      const newUser = { username, email, password, role: 'User' } 
       this.users.push(newUser)
-      this.currentUser = { username, email, role: 'user' }
+      this.currentUser = { username, email, role: 'User' }
       saveState({ users: this.users, currentUser: this.currentUser })
     },
     login ({ username, password }) {
